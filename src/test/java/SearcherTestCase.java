@@ -1,15 +1,11 @@
-
-
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
-import com.daniel.Searcher;
+import com.example.Searcher;
 
 class SearcherTestCase {
 
@@ -26,6 +22,12 @@ class SearcherTestCase {
         assertFalse(Searcher.searchWord("ratón", list));
     }
 
+    @Test
+    void testSearchWordEmptyList() {
+        List<String> list = Collections.emptyList();
+        assertFalse(Searcher.searchWord("algo", list));
+    }
+
     // ---- getWordByIndex ----
     @Test
     void testGetWordByValidIndex() {
@@ -38,6 +40,12 @@ class SearcherTestCase {
         List<String> list = Arrays.asList("casa", "perro", "gato");
         assertNull(Searcher.getWordByIndex(list, -1));
         assertNull(Searcher.getWordByIndex(list, 10));
+    }
+
+    @Test
+    void testGetWordByIndexEmptyList() {
+        List<String> list = Collections.emptyList();
+        assertNull(Searcher.getWordByIndex(list, 0));
     }
 
     // ---- searchByPrefix ----
@@ -57,6 +65,13 @@ class SearcherTestCase {
         assertTrue(result.isEmpty());
     }
 
+    @Test
+    void testSearchByPrefixEmptyList() {
+        List<String> list = Collections.emptyList();
+        List<String> result = Searcher.searchByPrefix("car", list);
+        assertTrue(result.isEmpty());
+    }
+
     // ---- filterByKeyword ----
     @Test
     void testFilterByKeywordExists() {
@@ -72,7 +87,14 @@ class SearcherTestCase {
         assertTrue(result.isEmpty());
     }
 
-    // ---- (Avanzado) searchExactPhrase ----
+    @Test
+    void testFilterByKeywordEmptyList() {
+        List<String> list = Collections.emptyList();
+        List<String> result = Searcher.filterByKeyword("algo", list);
+        assertTrue(result.isEmpty());
+    }
+
+    // ---- searchExactPhrase ----
     @Test
     void testSearchExactPhraseFound() {
         List<String> list = Arrays.asList("hola mundo", "adiós mundo");
@@ -82,7 +104,27 @@ class SearcherTestCase {
     @Test
     void testSearchExactPhraseBug() {
         List<String> list = Arrays.asList("primero", "hola mundo", "otro");
-        // si la implementación solo mira el primero, este test fallaría
         assertTrue(Searcher.searchExactPhrase("hola mundo", list));
+    }
+
+    @Test
+    void testSearchExactPhraseNotFound() {
+        List<String> list = Arrays.asList("uno", "dos", "tres");
+        assertFalse(Searcher.searchExactPhrase("cuatro", list));
+    }
+
+    @Test
+    void testSearchExactPhraseEmptyList() {
+        List<String> list = Collections.emptyList();
+        assertFalse(Searcher.searchExactPhrase("algo", list));
+    }
+
+    // ---- defensivo: listas nulas (para robustez extra) ----
+    @Test
+    void testNullListsReturnExpectedValues() {
+        assertThrows(NullPointerException.class, () -> Searcher.searchWord("test", null));
+        assertThrows(NullPointerException.class, () -> Searcher.searchByPrefix("a", null));
+        assertThrows(NullPointerException.class, () -> Searcher.filterByKeyword("x", null));
+        assertThrows(NullPointerException.class, () -> Searcher.searchExactPhrase("a", null));
     }
 }

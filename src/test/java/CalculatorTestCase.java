@@ -1,6 +1,6 @@
 import org.junit.jupiter.api.Test;
 
-import com.daniel.Calculator;
+import com.example.Calculator;
 
 import java.util.Arrays;
 import java.util.Collections;
