@@ -2,19 +2,23 @@ package model;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import com.example.Calculator;
 
 public class Order {
 
     private String id;
     private List<Article> articles;
+    private Calculator calculator;
 
-    public Order() {  }
+    public Order() {
+        this.calculator = new Calculator();
+        this.articles = new ArrayList<>();
+    }
 
     public Order(String id, List<Article> articles) {
         this.id = id;
         this.articles = articles != null ? articles : new ArrayList<>();
+        this.calculator = new Calculator();
     }
 
     //Getters y Setters
@@ -30,7 +34,7 @@ public class Order {
         for (Article a : articles) {
             amounts.add(a.getGrossAmount());
         }
-        return Calculator.calculateTotal(amounts);
+        return calculator.calculateTotal(amounts);
     }
 
     public double getDiscountedTotal() {
@@ -38,7 +42,7 @@ public class Order {
         for (Article a : articles) {
             amounts.add(a.getDiscountedAmount());
         }
-        return Calculator.calculateTotal(amounts);
+        return calculator.calculateTotal(amounts);
     }
 
     @Override
