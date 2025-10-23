@@ -10,19 +10,21 @@ public class Order {
     private String id;
     private List<Article> articles;
 
+    public Order() {  }
+
     public Order(String id, List<Article> articles) {
         this.id = id;
         this.articles = articles != null ? articles : new ArrayList<>();
     }
 
-    // --- Getters y Setters ---
+    //Getters y Setters
     public String getId() { return id; }
     public void setId(String id) { this.id = id; }
 
     public List<Article> getArticles() { return articles; }
     public void setArticles(List<Article> articles) { this.articles = articles; }
 
-    // --- Métodos principales ---
+    // Métodos principales
     public double getGrossTotal() {
         List<Double> amounts = new ArrayList<>();
         for (Article a : articles) {

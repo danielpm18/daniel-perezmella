@@ -6,32 +6,35 @@ public class Article {
 
     private String name;
     private int quantity;
-    private double price;
+    private double unitPrice;
     private double discount;
 
-    public Article(String name, int quantity, double price, double discount) {
+    
+    public Article() {}
+
+    public Article(String name, int quantity, double unitPrice, double discount) {
         this.name = name;
         this.quantity = quantity;
-        this.price = price;
+        this.unitPrice = unitPrice;
         this.discount = discount;
     }
 
-    // --- Getters y Setters ---
+    //Getters y Setters
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }
 
     public int getQuantity() { return quantity; }
     public void setQuantity(int quantity) { this.quantity = quantity; }
 
-    public double getPrice() { return price; }
-    public void setPrice(double price) { this.price = price; }
+    public double getUnitPrice() { return unitPrice; }
+    public void setUnitPrice(double unitPrice) { this.unitPrice = unitPrice; }
 
     public double getDiscount() { return discount; }
     public void setDiscount(double discount) { this.discount = discount; }
 
-    // --- Métodos principales ---
+    //Métodos principales
     public double getGrossAmount() {
-        return Calculator.multiply(quantity, (int) price);
+        return Calculator.multiply(quantity, (int) unitPrice);
     }
 
     public double getDiscountedAmount() {
@@ -41,6 +44,6 @@ public class Article {
 
     @Override
     public String toString() {
-        return String.format("%s x%d (%.2f€ - %.1f%% desc)", name, quantity, price, discount);
+        return String.format("%s x%d (%.2f€ - %.1f%% desc)", name, quantity, unitPrice, discount);
     }
 }

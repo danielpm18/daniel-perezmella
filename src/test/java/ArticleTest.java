@@ -25,12 +25,12 @@ class ArticleTest {
         Article a = new Article("Monitor", 1, 100.0, 5);
         a.setName("Pantalla");
         a.setQuantity(2);
-        a.setPrice(50.0);
+        a.setUnitPrice(50.0);
         a.setDiscount(10.0);
 
         assertEquals("Pantalla", a.getName());
         assertEquals(2, a.getQuantity());
-        assertEquals(50.0, a.getPrice());
+        assertEquals(50.0, a.getUnitPrice());
         assertEquals(10.0, a.getDiscount());
         assertTrue(a.toString().contains("Pantalla"));
     }
