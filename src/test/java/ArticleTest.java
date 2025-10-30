@@ -1,6 +1,6 @@
 import org.junit.jupiter.api.Test;
 
-import model.Article;
+import com.example.model.Article;
 
 import static org.junit.jupiter.api.Assertions.*;
 

@@ -1,6 +1,4 @@
-package model;
-
-import com.example.Calculator;
+package com.example.model;
 
 public class Article {
 

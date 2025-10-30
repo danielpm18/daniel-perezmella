@@ -1,8 +1,7 @@
-package model;
+package com.example.model;
 
 import java.util.ArrayList;
 import java.util.List;
-import com.example.Calculator;
 
 public class Order {
 
@@ -49,4 +48,7 @@ public class Order {
     public String toString() {
         return "Order{id='" + id + "', articles=" + articles + "}";
     }
+
+
+
 }

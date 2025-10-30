@@ -1,5 +1,7 @@
 import org.junit.jupiter.api.Test;
-import com.example.Calculator;
+
+import com.example.model.Calculator;
+
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -9,7 +11,7 @@ class CalculatorTestCase {
 
     private final Calculator calculator = new Calculator();
 
-    // ---- multiply ----
+    // multiply
     @Test
     void testMultiplyNormal() {
         assertEquals(6, calculator.multiply(2, 3));
@@ -26,7 +28,7 @@ class CalculatorTestCase {
         assertEquals(9, calculator.multiply(-3, -3));
     }
 
-    // ---- concat ----
+    //concat
     @Test
     void testConcatNormal() {
         assertEquals("HolaMundo", calculator.concat("Hola", "Mundo"));

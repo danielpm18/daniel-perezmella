@@ -1,8 +1,11 @@
 package com.example;
 
+import com.example.controller.OrderController;
+import com.example.model.Order;
+import com.example.view.OrderView;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import model.Order;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -34,8 +37,13 @@ public class Main {
 
             log.info("Successfully loaded {} orders from JSON.", orders.size());
 
+            // Initialize MVC
+            OrderView view = new OrderView();
+            new OrderController(view, orders);
+
         } catch (Exception e) {
             log.error("Error loading orders.json", e);
         }
+
     }
 }

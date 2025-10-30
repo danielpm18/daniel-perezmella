@@ -5,7 +5,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
-import com.example.Searcher;
+import com.example.model.Searcher;
 
 class SearcherTestCase {
 

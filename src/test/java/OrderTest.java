@@ -1,7 +1,7 @@
 import org.junit.jupiter.api.Test;
 
-import model.Article;
-import model.Order;
+import com.example.model.Article;
+import com.example.model.Order;
 
 import java.util.Arrays;
 import java.util.List;
