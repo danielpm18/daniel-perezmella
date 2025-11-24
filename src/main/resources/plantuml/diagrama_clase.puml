@@ -1,0 +1,89 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+package com.example.model {
+    
+    class Article {
+        - name : String
+        - quantity : int
+        - unitPrice : double
+        - discount : double
+        - calculator : Calculator
+        + getName() : String
+        + setName(String)
+        + getQuantity() : int
+        + setQuantity(int)
+        + getUnitPrice() : double
+        + setUnitPrice(double)
+        + getDiscount() : double
+        + setDiscount(double)
+        + getGrossAmount() : double
+        + getDiscountedAmount() : double
+    }
+
+    class Order {
+        - id : String
+        - articles : List<Article>
+        - calculator : Calculator
+        + getId() : String
+        + setId(String)
+        + getArticles() : List<Article>
+        + setArticles(List<Article>)
+        + getGrossTotal() : double
+        + getDiscountedTotal() : double
+    }
+
+    class Calculator {
+        - currency : String
+        - roundingPrecision : int
+        + multiply(int,int) : int
+        + concat(String,String) : String
+        + sum(double,double) : double
+        + discount(double,double) : double
+        + calculateTotal(List<Double>) : double
+    }
+
+    class Searcher {
+        + searchExactPhrase(String,List<String>) : boolean
+        + searchWord(String,List<String>) : boolean
+        + getWordByIndex(List<String>,int) : String
+        + searchByPrefix(String,List<String>) : List<String>
+        + filterByKeyword(String,List<String>) : List<String>
+    }
+}
+
+package com.example.view {
+    class OrderView {
+        + getSearchButton()
+        + getSearchId() : String
+        + displayOrder(String)
+        + displayMessage(String)
+    }
+}
+
+package com.example.controller {
+    class OrderController {
+        - view : OrderView
+        - orders : List<Order>
+        + searchOrder() : void
+    }
+}
+
+package com.example {
+    class Main {
+        + main(String[]) : void
+    }
+}
+
+Order "1" o-- "*" Article : contiene >
+Order --> Calculator
+Article --> Calculator
+
+OrderController --> OrderView
+OrderController --> Order
+
+Main --> OrderController
+Main --> OrderView
+Main --> Order
+
+@enduml

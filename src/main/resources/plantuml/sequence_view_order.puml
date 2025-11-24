@@ -1,0 +1,23 @@
+@startuml
+actor User
+
+User -> OrderView : Click "Search"
+OrderView -> OrderController : actionPerformed()
+
+OrderController -> OrderView : getSearchId()
+OrderController -> OrderController : searchOrder()
+
+OrderController -> Order : matches id?
+OrderController <-- Order : found / null
+
+alt Order found
+    OrderController -> Order : getGrossTotal()
+    OrderController -> Order : getDiscountedTotal()
+    OrderController -> Order : getArticles()
+
+    OrderController -> OrderView : displayOrder(details)
+else Order not found
+    OrderController -> OrderView : displayMessage("Order not found")
+end
+
+@enduml
