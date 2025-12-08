@@ -2,6 +2,7 @@ package com.example.view;
 
 import javax.swing.*;
 import java.awt.*;
+import java.net.URL;
 
 public class OrderView extends JFrame {
 
@@ -22,9 +23,26 @@ public class OrderView extends JFrame {
         JScrollPane scrollPane = new JScrollPane(resultArea);
         add(scrollPane);
 
+        // Se llama desde el constructor del controlador
+        // loadAppIcon(); 
+        
         pack();
         setLocationRelativeTo(null); // centrar ventana
         setVisible(true);
+    }
+    
+    /**
+     * Carga y establece el icono 'app.png' para la ventana (Punto 1).
+     */
+    public void loadAppIcon() {
+        // Carga el recurso desde la carpeta 'resources'
+        URL iconURL = getClass().getClassLoader().getResource("app.png");
+        if (iconURL != null) {
+            ImageIcon icon = new ImageIcon(iconURL);
+            setIconImage(icon.getImage());
+        } else {
+            System.err.println("App icon 'app.png' not found in resources folder.");
+        }
     }
 
     public String getSearchId() {
