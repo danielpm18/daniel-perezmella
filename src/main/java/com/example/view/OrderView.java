@@ -7,57 +7,60 @@ import java.net.URL;
 public class OrderView extends JFrame {
 
     private JTextField searchField = new JTextField(10);
-    private JButton searchButton = new JButton("Search");
-    private JTextArea resultArea = new JTextArea(15, 45);
+    private JButton searchButton = new JButton("Buscar");
+    private JButton deleteButton = new JButton("Borrar");
+    private JButton createButton = new JButton("Nuevo Pedido");
+    private JButton editButton = new JButton("Editar Artículos"); // OPCIONAL
+    private JTextArea resultArea = new JTextArea(15, 50);
+    private JLabel idListLabel = new JLabel("IDs disponibles: ");
 
     public OrderView() {
-        setTitle("Order Management System");
+        setTitle("Order Management System - Evolutivo v2.0");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLayout(new FlowLayout());
+        setLayout(new BorderLayout(10, 10));
 
-        add(new JLabel("Order ID:"));
-        add(searchField);
-        add(searchButton);
+        // Panel Superior: Lista de IDs
+        JPanel topPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        topPanel.setBorder(BorderFactory.createTitledBorder("Inventario Actual"));
+        topPanel.add(idListLabel);
+        add(topPanel, BorderLayout.NORTH);
 
+        // Panel Central: Resultados
         resultArea.setEditable(false);
+        resultArea.setFont(new Font("Monospaced", Font.PLAIN, 12));
         JScrollPane scrollPane = new JScrollPane(resultArea);
-        add(scrollPane);
+        add(scrollPane, BorderLayout.CENTER);
 
-        // Se llama desde el constructor del controlador
-        // loadAppIcon(); 
-        
+        // Panel Inferior: Controles
+        JPanel controlPanel = new JPanel(new FlowLayout());
+        controlPanel.add(new JLabel("ID Pedido:"));
+        controlPanel.add(searchField);
+        controlPanel.add(searchButton);
+        controlPanel.add(deleteButton);
+        controlPanel.add(createButton);
+        controlPanel.add(editButton); // Botón para el caso de uso opcional
+        add(controlPanel, BorderLayout.SOUTH);
+
         pack();
-        setLocationRelativeTo(null); // centrar ventana
+        setLocationRelativeTo(null);
         setVisible(true);
     }
-    
-    /**
-     * Carga y establece el icono 'app.png' para la ventana (Punto 1).
-     */
+
     public void loadAppIcon() {
-        // Carga el recurso desde la carpeta 'resources'
         URL iconURL = getClass().getClassLoader().getResource("app.png");
         if (iconURL != null) {
-            ImageIcon icon = new ImageIcon(iconURL);
-            setIconImage(icon.getImage());
-        } else {
-            System.err.println("App icon 'app.png' not found in resources folder.");
+            setIconImage(new ImageIcon(iconURL).getImage());
         }
     }
 
-    public String getSearchId() {
-        return searchField.getText();
-    }
-
-    public JButton getSearchButton() {
-        return searchButton;
-    }
-
-    public void displayOrder(String details) {
-        resultArea.setText(details);
-    }
-
-    public void displayMessage(String message) {
-        resultArea.setText(message);
-    }
+    // Getters para el controlador
+    public String getSearchId() { return searchField.getText(); }
+    public JButton getSearchButton() { return searchButton; }
+    public JButton getDeleteButton() { return deleteButton; }
+    public JButton getCreateButton() { return createButton; }
+    public JButton getEditButton() { return editButton; }
+    
+    public void setIdListText(String text) { idListLabel.setText("IDs disponibles: " + text); }
+    public void displayOrder(String details) { resultArea.setText(details); }
+    public void displayMessage(String message) { resultArea.setText(message); }
 }

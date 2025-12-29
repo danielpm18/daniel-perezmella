@@ -1,90 +1,72 @@
-# Proyecto Java Maven - [Nombre del Proyecto]
+# Order Management System - Evolutivo v2.0
 
-Este proyecto es una plantilla base para comenzar a trabajar con aplicaciones Java utilizando Maven. Asegúrate de seguir las instrucciones para configurar tu entorno correctamente y entender cómo contribuir al proyecto.
+Este proyecto es una aplicación Java basada en el patrón **MVC (Modelo-Vista-Controlador)** que permite la gestión de pedidos almacenados en formato JSON. Esta versión incluye mejoras significativas en la interactividad y persistencia de datos.
 
-## Tabla de Contenidos
+## 🚀 Nuevas Funcionalidades (Evolutivo)
 
-- [Introducción](#introducción)
-- [Requisitos](#requisitos)
-- [Configuración del Entorno](#configuración-del-entorno)
-- [Estructura del Proyecto](#estructura-del-proyecto)
-- [Compilación y Ejecución](#compilación-y-ejecución)
-- [Contribución](#contribución)
-- [Licencia](#licencia)
+Se han implementado los siguientes casos de uso adicionales:
+
+1.  **Visualización Inicial**: Ahora la aplicación muestra una lista de los IDs de pedidos disponibles nada más arrancar, permitiendo al usuario saber qué datos existen sin realizar búsquedas previas.
+2.  **Creación de Pedidos**: Formulario integrado para añadir nuevos pedidos. El sistema valida que el **ID sea único** para evitar duplicados en la base de datos.
+3.  **Borrado de Pedidos**: Posibilidad de eliminar pedidos existentes mediante el botón "Borrar".
+4.  **Edición de Artículos (Opcional)**: Funcionalidad avanzada para modificar la **cantidad** y el **descuento** de los artículos de un pedido ya existente.
+5.  **Persistencia Real**: Todos los cambios (crear, borrar, editar) se sobrescriben automáticamente en el archivo `orders.json`, asegurando que los datos se mantengan al reiniciar la aplicación.
 
 ---
 
-## Introducción
+## 🛠️ Tecnologías Utilizadas
 
-Este es un proyecto base para aprender sobre el uso de **Java** y **Maven**. El objetivo familiarizarse con las buenas prácticas de desarrollo y gestionar dependencias utilizando Maven.
+* **Java SE**: Lenguaje principal.
+* **Swing**: Interfaz gráfica de usuario.
+* **Maven**: Gestión de dependencias.
+* **Jackson**: Librería para el parseo y escritura de archivos JSON.
+* **PlantUML**: Generación de diagramas de casos de uso.
+* **SLF4J/Logback**: Sistema de trazas y logs.
 
-## Requisitos
+---
 
-Antes de comenzar, asegúrate de tener instalado lo siguiente en tu sistema:
+## 📖 Manual de Usuario
 
-- **Java 8+** (JDK) - Puedes descargarlo desde [Oracle](https://www.oracle.com/java/technologies/javase-jdk11-downloads.html) o [OpenJDK](https://openjdk.java.net/)
-- **Maven** - Puedes instalar Maven siguiendo las instrucciones en su sitio oficial: [https://maven.apache.org/install.html](https://maven.apache.org/install.html)
-- **IDE recomendada:** Visual Studio Code o cualquier editor de tu preferencia con soporte para Java.
+### 1. Consultar Pedidos
+Al abrir la app, consulta la lista de IDs en la parte superior. Escribe un ID en el cuadro de texto y pulsa **"Buscar"**. Verás los detalles del pedido, el desglose de artículos y los totales convertidos a USD mediante un servicio de tasa de cambio.
 
-## Configuración del Entorno
+### 2. Crear un Pedido
+* Pulsa el botón **"Nuevo Pedido"**.
+* Introduce un ID único (ej. `O006`).
+* Introduce el nombre del primer artículo.
+* El pedido se guardará automáticamente en el sistema.
 
-### 1. Instalar Java
-Asegúrate de que tienes **Java 8** o una versión superior instalada. Puedes verificarlo con el siguiente comando:
+### 3. Borrar un Pedido
+* Escribe el ID del pedido que deseas eliminar.
+* Pulsa el botón **"Borrar"**.
+* El ID desaparecerá de la lista superior y del archivo JSON.
 
-```bash
-java -version
-```
+### 4. Editar un Pedido (Opcional)
+* Busca primero el pedido que quieres modificar.
+* Pulsa **"Editar Artículos"**.
+* Introduce la nueva cantidad y el nuevo porcentaje de descuento.
+* La vista se actualizará automáticamente con los nuevos cálculos de totales.
 
-### 2. Instalar Maven
-Una vez que tengas Java instalado, puedes proceder con la instalación de Maven. Para verificar que Maven esté instalado correctamente, ejecuta el siguiente comando:
+---
 
-mvn -version
+## 📊 Diagrama de Casos de Uso
 
-### 3. Configurar el IDE
-Para trabajar con este proyecto, puedes usar cualquier IDE que soporte Java, como Visual Studio Code, IntelliJ IDEA, Eclipse, etc. Si estás usando Visual Studio Code, asegúrate de instalar las siguientes extensiones:
+El diagrama actualizado se encuentra en la ruta `src/main/resources/plantuml/`. Refleja las nuevas interacciones del usuario con el sistema y la relación de inclusión con el proceso de persistencia en JSON.
 
-Java Extension Pack (de Microsoft)
-Maven for Java
 
-## Estructura del proyecto
 
-```plaintext
-[NombreDelProyecto]/
-├── src/
-│   └── main/
-│       └── java/
-│           └── com/
-│               └── ejemplo/
-│                   └── App.java
-├── pom.xml
-├── target/
-└── README.md
-```
+---
 
-## Compilación y ejecución
+## 📦 Instalación y Ejecución
 
-Para compilar y ejecutar el proyecto, sigue estos pasos:
+1.  Clonar el repositorio:
+    ```bash
+    git clone [https://github.com/TU_USUARIO/TU_REPOSIORIO.git](https://github.com/TU_USUARIO/TU_REPOSIORIO.git)
+    ```
+2.  Importar como proyecto Maven en tu IDE (IntelliJ, Eclipse, VS Code).
+3.  Asegurarse de que el archivo `src/main/resources/orders.json` tiene permisos de escritura.
+4.  Ejecutar la clase `Main.java`.
 
-Abre una terminal en la raíz del proyecto.
+---
 
-Ejecuta el siguiente comando para compilar el proyecto:
-```bash
-mvn clean install
-```
-Para ejecutar la aplicación, usa el siguiente comando:
-```bash
-mvn exec:java
-```
-
-## Contribución
-
-Si deseas contribuir a este proyecto, por favor sigue estos pasos:
-- Haz un fork del repositorio.
-- Crea una nueva rama (git checkout -b feature-nueva-funcionalidad).
-- Realiza tus cambios y haz commit (git commit -am 'Agregué nueva funcionalidad').
-- Empuja los cambios a tu fork (git push origin feature-nueva-funcionalidad).
-- Crea un pull request.
-
-## Licencia
-
-Este proyecto está bajo la Licencia MIT - consulta el archivo LICENSE para más detalles.
+© 2025 - Desarrollado por Daniel Perezmella

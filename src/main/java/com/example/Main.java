@@ -1,49 +1,49 @@
-package com.example;
+    package com.example;
 
-import com.example.controller.OrderController;
-import com.example.model.Order;
-import com.example.view.OrderView;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
+    import com.example.controller.OrderController;
+    import com.example.model.Order;
+    import com.example.view.OrderView;
+    import com.fasterxml.jackson.core.type.TypeReference;
+    import com.fasterxml.jackson.databind.ObjectMapper;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+    import org.slf4j.Logger;
+    import org.slf4j.LoggerFactory;
 
-import java.io.InputStream;
-import java.util.List;
+    import java.io.InputStream;
+    import java.util.List;
 
-public class Main {
+    public class Main {
 
-    public static final Logger log = LoggerFactory.getLogger(Main.class);
+        public static final Logger log = LoggerFactory.getLogger(Main.class);
 
-    public static void main(String[] args) {
+        public static void main(String[] args) {
 
-        log.info("Starting Order Management System...");
+            log.info("Starting Order Management System...");
 
-        try {
-            // Crear el ObjectMapper
-            ObjectMapper mapper = new ObjectMapper();
+            try {
+                // Crear el ObjectMapper
+                ObjectMapper mapper = new ObjectMapper();
 
-            // Cargar el archivo JSON desde resources
-            InputStream inputStream = Main.class.getResourceAsStream("/orders.json");
+                // Cargar el archivo JSON desde resources
+                InputStream inputStream = Main.class.getResourceAsStream("/orders.json");
 
-            // Parsear la lista de pedidos
-            List<Order> orders = mapper.readValue(inputStream, new TypeReference<List<Order>>() {});
+                // Parsear la lista de pedidos
+                List<Order> orders = mapper.readValue(inputStream, new TypeReference<List<Order>>() {});
 
-            // Log de cada pedido cargado
-            for (Order order : orders) {
-                log.debug("Loaded order: {}", order.getId());
+                // Log de cada pedido cargado
+                for (Order order : orders) {
+                    log.debug("Loaded order: {}", order.getId());
+                }
+
+                log.info("Successfully loaded {} orders from JSON.", orders.size());
+
+                // Initialize MVC
+                OrderView view = new OrderView();
+                new OrderController(view, orders);
+
+            } catch (Exception e) {
+                log.error("Error loading orders.json", e);
             }
 
-            log.info("Successfully loaded {} orders from JSON.", orders.size());
-
-            // Initialize MVC
-            OrderView view = new OrderView();
-            new OrderController(view, orders);
-
-        } catch (Exception e) {
-            log.error("Error loading orders.json", e);
         }
-
     }
-}
